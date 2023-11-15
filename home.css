@@ -8,11 +8,10 @@ body {
     top: 0px;
     left: 0px;
     display: grid;
-    grid-template-columns: 25% auto 25%;
-    grid-template-rows: 25% auto;
+    grid-template-columns: 20% auto 25%;
+    grid-template-rows: 25% auto 15%;
     width: calc(100% - 50px);
     height: calc(100% - 50px);
-    background-color: rgba(233, 0, 0, 0);
     border-style: solid;
     border-radius: 5px;
     border-width: 3px;
@@ -21,7 +20,7 @@ body {
     margin: 20px;
 }
 
-.overlay div {
+.overlay .Titling{
     grid-column: 1 / span 3;
     grid-row: 1;
 }
@@ -32,6 +31,8 @@ h1 {
     text-align: center;
     font-size: 40px;
     margin-bottom: 10px;
+    animation-name: TitleFade;
+    animation-duration: 1s;
     /* grid-column: 1/ span 3;
     grid-row: 1; */
 }
@@ -39,14 +40,87 @@ h1 {
 h3 {
     color: white;
     margin: 10px;
-    font-family: 'Fira Code', monospace;
+    font-family: 'Source Code Pro', monospace;
+    font-weight: bold;
+    font-style: italic;
     text-align: center;
+    animation-name: HeadingFade;
+    /* animation-delay: .2s; */
+    animation-duration: 1s;
+    /* opacity: 0%; */
     /* grid-column: 1/ span 3;
     grid-row: 1; */
 }
 
+p {
+    color: white;
+    margin: 10px;
+    font-family: 'Fira Code', monospace;
+}
+
+.overlay .ButtonMenu {
+    background-color: rgba(255, 255, 255, 0.603);
+    border-radius: 15px;
+    grid-column: 1;
+    grid-row: 2;
+    margin: 10px;
+}
+
+.overlay .ButtonMenu button {
+    display: block;
+    font-size: 20px;
+    font-family: 'Fira Code', monospace;
+    color: white;
+    background-color: rgba(255, 255, 255, 0.308);
+    border-style: none;
+    border-radius: 25px;
+    margin: 15px;
+    padding: 15px;
+}
+
+.overlay .ButtonMenu button:hover {
+    display: block;
+    font-size: 20px;
+    font-family: 'Fira Code', monospace;
+    color: white;
+    background-color: rgba(143, 143, 143, 0.308);
+    /* border-style: solid;
+    border-width: 0px 0px 0px 5px;
+    border-color: white; */
+    border-radius: 25px;
+    margin: 15px;
+    padding: 15px;
+    animation-name: ButtonHover;
+    animation-duration: .2s;
+}
+
+@keyframes ButtonHover {
+    from{
+        background-color: rgba(255, 255, 255, 0.308);
+        /* border-style: solid;
+        border-width: 0px 0px 0px 0px;
+        border-color: white; */
+    }
+    to{
+        background-color: rgba(143, 143, 143, 0.308);
+        /* border-style: solid;
+        border-width: 0px 0px 0px 5px;
+        border-color: white; */
+    }
+}
 
 @keyframes TitleFade {
+    from{
+        transform: translateY(-100%);
+        opacity: 0%;
+    }
+    to{
+        transform: translateY(0);
+        opacity: 100%;
+    }
+}
+
+@keyframes HeadingFade {
     from{
         transform: translateY(-100%);
         opacity: 0%;
