@@ -2,3 +2,68 @@ body {
     margin: 0;
     overflow: hidden;
 }
+
+.overlay {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: grid;
+    grid-template-columns: 25% auto 25%;
+    grid-template-rows: 25% auto;
+    width: calc(100% - 50px);
+    height: calc(100% - 50px);
+    background-color: rgba(233, 0, 0, 0);
+    border-style: solid;
+    border-radius: 5px;
+    border-width: 3px;
+    border-color: rgba(256, 256, 256, 50%);
+    z-index: 99 !important;
+    margin: 20px;
+}
+
+.overlay div {
+    grid-column: 1 / span 3;
+    grid-row: 1;
+}
+
+h1 {
+    color: white;
+    font-family: 'Source Code Pro', monospace;
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 10px;
+    /* grid-column: 1/ span 3;
+    grid-row: 1; */
+}
+
+h3 {
+    color: white;
+    margin: 10px;
+    font-family: 'Fira Code', monospace;
+    text-align: center;
+    /* grid-column: 1/ span 3;
+    grid-row: 1; */
+}
+
+
+@keyframes TitleFade {
+    from{
+        transform: translateY(-100%);
+        opacity: 0%;
+    }
+    to{
+        transform: translateY(0);
+        opacity: 100%;
+    }
+}
+
+@keyframes InfoFade {
+    from{
+        transform: translateX(100%);
+        opacity: 0%;
+    }
+    to{
+        transform: translateY(0);
+        opacity: 100%;
+    }
+}
