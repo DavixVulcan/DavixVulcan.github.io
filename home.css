@@ -3,28 +3,6 @@ body {
     overflow: hidden;
 }
 
-.overlay {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    display: grid;
-    grid-template-columns: 20% auto 25%;
-    grid-template-rows: 25% auto 15%;
-    width: calc(100% - 50px);
-    height: calc(100% - 50px);
-    border-style: solid;
-    border-radius: 5px;
-    border-width: 3px;
-    border-color: rgba(256, 256, 256, 50%);
-    z-index: 99 !important;
-    margin: 20px;
-}
-
-.overlay .Titling{
-    grid-column: 1 / span 3;
-    grid-row: 1;
-}
-
 h1 {
     color: white;
     font-family: 'Source Code Pro', monospace;
@@ -52,10 +30,75 @@ h3 {
     grid-row: 1; */
 }
 
+@keyframes TitleFade {
+    from{
+        transform: translateY(-100%);
+        opacity: 0%;
+    }
+    to{
+        transform: translateY(0);
+        opacity: 100%;
+    }
+}
+
+@keyframes HeadingFade {
+    from{
+        transform: translateY(-100%);
+        opacity: 0%;
+    }
+    to{
+        transform: translateY(0);
+        opacity: 100%;
+    }
+}
+
 p {
     color: white;
     margin: 10px;
     font-family: 'Fira Code', monospace;
+}
+
+.overlay {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: grid;
+    grid-template-columns: 20% auto 20%;
+    grid-template-rows: 25% auto 15%;
+    width: calc(100% - 50px);
+    height: calc(100% - 50px);
+    border-style: solid;
+    border-radius: 5px;
+    border-width: 3px;
+    border-color: rgba(256, 256, 256, 50%);
+    z-index: 99 !important;
+    margin: 20px;
+}
+
+.overlay .Titling{
+    grid-column: 1 / span 3;
+    grid-row: 1;
+}
+
+.overlay .Descriptor {
+    background-color: rgba(255, 255, 255, 0.603);
+    border-radius: 15px;
+    grid-column: 3;
+    grid-row: 2;
+    margin: 10px;
+    animation-name: InfoFade;
+    animation-duration: 1.5s;
+}
+
+@keyframes InfoFade {
+    from{
+        transform: translateX(100%);
+        opacity: 0%;
+    }
+    to{
+        transform: translateY(0);
+        opacity: 100%;
+    }
 }
 
 .overlay .ButtonMenu {
@@ -64,6 +107,19 @@ p {
     grid-column: 1;
     grid-row: 2;
     margin: 10px;
+    animation-name: MenuFade;
+    animation-duration: 1.5s;
+}
+
+@keyframes MenuFade {
+    from{
+        transform: translateX(-100%);
+        opacity: 0%;
+    }
+    to{
+        transform: translateY(0);
+        opacity: 100%;
+    }
 }
 
 .overlay .ButtonMenu button {
@@ -109,35 +165,3 @@ p {
     }
 }
 
-@keyframes TitleFade {
-    from{
-        transform: translateY(-100%);
-        opacity: 0%;
-    }
-    to{
-        transform: translateY(0);
-        opacity: 100%;
-    }
-}
-
-@keyframes HeadingFade {
-    from{
-        transform: translateY(-100%);
-        opacity: 0%;
-    }
-    to{
-        transform: translateY(0);
-        opacity: 100%;
-    }
-}
-
-@keyframes InfoFade {
-    from{
-        transform: translateX(100%);
-        opacity: 0%;
-    }
-    to{
-        transform: translateY(0);
-        opacity: 100%;
-    }
-}
