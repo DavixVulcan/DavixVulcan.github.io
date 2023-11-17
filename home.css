@@ -81,6 +81,7 @@ p {
 }
 
 .overlay .Descriptor {
+    padding: 10px;
     background-color: rgba(255, 255, 255, 0.603);
     border-radius: 15px;
     grid-column: 3;
@@ -95,6 +96,17 @@ p {
     animation-duration: 1.5s;
 }
 
+.fadeDescriptorOut{
+    animation-name: fadeOut;
+    animation-duration: .2s;
+}
+
+@keyframes fadeOut {
+    to{
+        opacity: 0%;
+    }
+}
+
 @keyframes InfoFade {
     from{
         transform: translateX(100%);
@@ -107,6 +119,7 @@ p {
 }
 
 .overlay .ButtonMenu {
+    padding: 10px;
     background-color: rgba(255, 255, 255, 0.603);
     border-radius: 15px;
     grid-column: 1;
@@ -133,11 +146,8 @@ p {
     font-family: 'Fira Code', monospace;
     color: white;
     background-color: rgba(240, 248, 255, 0);
-    /* background-color: rgba(255, 255, 255, 0.308);
     border-style: none;
-    border-radius: 25px; */
-    border-style: none;
-    margin: 10px;
+    /* margin: 5px; */
     padding: 10px;
 }
 
@@ -158,45 +168,25 @@ p {
     left: 0; 
 }
 
-/* .overlay .ButtonMenu button:hover {
-    display: block;
-    font-size: 20px;
-    font-family: 'Fira Code', monospace;
-    color: white; */
-    /* background-color: rgba(143, 143, 143, 0.308); */
-    /* border-style: solid;
-    border-width: 0px 0px 0px 5px;
-    border-color: white; */
-    /* border-radius: 25px; */
-    /* border-style: none;
-    margin: 10px;
-    padding: 10px; */
-    /* animation-name: ButtonHover;
-    animation-duration: .2s; */
-/* } */
-
 @keyframes ButtonHover {
     from{
         background-color: rgba(255, 255, 255, 0.308);
-        /* border-style: solid;
-        border-width: 0px 0px 0px 0px;
-        border-color: white; */
     }
     to{
         background-color: rgba(143, 143, 143, 0.308);
-        /* border-style: solid;
-        border-width: 0px 0px 0px 5px;
-        border-color: white; */
     }
 }
 
-.fadeDescriptorOut{
-    animation-name: fadeOut;
-    animation-duration: .2s;
+.ProjectsContent {
+    padding-left: 30px;
+    /* margin-bottom: 10px; */
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    font-size: 15px;
+    font-family: 'Fira Code', monospace;
+    color: white;
+    /* animation-name: openContent;
+    animation-duration: 2s; */
 }
 
-@keyframes fadeOut {
-    to{
-        opacity: 0%;
-    }
-}

@@ -57,10 +57,24 @@ function move_to(p){
 	).easing(TWEEN.Easing.Cubic.InOut).start();
 }	
 
+// Toggle drop down
+// let dropTog = false;
 function drop_down_toggle(){
+	
 	const selectable = document.getElementById("ProjectsButton");
+	const content = document.getElementById("ProjectsContent");
 
+	if(content.style.maxHeight !== "0px"){
+		content.style.maxHeight = "0px";
+		selectable.innerHTML = "Projects +";
+	} else {
+		selectable.innerHTML = "Projects -"
+		content.style.maxHeight = content.scrollHeight + "px";
+		console.log("Opening");
+	}
 }
+
+window.drop_down_toggle = drop_down_toggle;
 
 // Animation loop
 function animate() {
