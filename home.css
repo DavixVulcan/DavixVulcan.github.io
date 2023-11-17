@@ -93,7 +93,7 @@ p {
 
 .overlay .Descriptor .newDescription {
     animation-name: InfoFade;
-    animation-duration: 1.5s;
+    animation-duration: 1s;
 }
 
 .fadeDescriptorOut{
@@ -140,7 +140,7 @@ p {
     }
 }
 
-.overlay .ButtonMenu button {
+.overlay .ButtonMenu .Button {
     display: block;
     font-size: 20px;
     font-family: 'Fira Code', monospace;
@@ -151,7 +151,7 @@ p {
     padding: 10px;
 }
 
-.overlay .ButtonMenu button:after {    
+.overlay .ButtonMenu .Button:after {    
     background: none repeat scroll 0 0 transparent;
     bottom: 0;
     content: "";
@@ -163,7 +163,7 @@ p {
     transition: width 0.3s ease 0s, left 0.3s ease 0s;
     width: 0;
 }
-.overlay .ButtonMenu button:hover:after { 
+.overlay .ButtonMenu .Button:hover:after { 
     width: 100%; 
     left: 0; 
 }
@@ -186,7 +186,13 @@ p {
     font-size: 15px;
     font-family: 'Fira Code', monospace;
     color: white;
-    /* animation-name: openContent;
-    animation-duration: 2s; */
+}
+
+button, .Button {
+    border: none;
+    font-size: 15px;
+    font-family: 'Fira Code', monospace;
+    background-color: rgba(240, 248, 255, 0);
+    color: white;
 }
 
