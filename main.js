@@ -66,9 +66,9 @@ function drop_down_toggle(){
 
 	if(content.style.maxHeight !== "0px"){
 		content.style.maxHeight = "0px";
-		selectable.innerHTML = "Projects +";
+		selectable.innerHTML = "Projects + ";
 	} else {
-		selectable.innerHTML = "Projects -"
+		selectable.innerHTML = "Projects - "
 		content.style.maxHeight = content.scrollHeight + "px";
 		console.log("Opening");
 	}
