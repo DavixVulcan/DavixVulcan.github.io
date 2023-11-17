@@ -90,6 +90,11 @@ p {
     animation-duration: 1.5s;
 }
 
+.overlay .Descriptor .newDescription {
+    animation-name: InfoFade;
+    animation-duration: 1.5s;
+}
+
 @keyframes InfoFade {
     from{
         transform: translateX(100%);
@@ -185,3 +190,13 @@ p {
     }
 }
 
+.fadeDescriptorOut{
+    animation-name: fadeOut;
+    animation-duration: .2s;
+}
+
+@keyframes fadeOut {
+    to{
+        opacity: 0%;
+    }
+}

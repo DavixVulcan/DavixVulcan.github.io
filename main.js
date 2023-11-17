@@ -35,6 +35,11 @@ const positions = new Map([
 	["Start", new camera_composition(1,1,5,0,0,0)]
 ])
 
+// Map of descriptions
+const descriptions = new Map ([
+	["Start", "Hello, welcome to the space. Look around, take a gander at what I've worked on. "]
+])
+
 // This function takes in a camera_allocator object, that extracts
 // the position and rotation, and tweens to it
 function move_to(p){
@@ -53,6 +58,7 @@ function move_to(p){
 }	
 
 function drop_down_toggle(){
+	const selectable = document.getElementById("ProjectsButton");
 
 }
 
@@ -67,5 +73,27 @@ function animate() {
 	TWEEN.update();
 }
 
+function update_descriptor(flavorText){
+	// Get description box and fade out element
+	const descriptorbox = document.getElementById("Descriptor");
+	const  olddescriptor = descriptorbox.firstElementChild;
+	olddescriptor.setAttribute("class", "fadeDescriptorOut");
+
+	// Make new element to repace it
+	const newdescriptor = document.createElement("p");
+	newdescriptor.innerHTML = flavorText;
+	newdescriptor.setAttribute("class", "newDescription");
+	
+	// Add it after .2 secs, after the fade out animation is complete, while removing the old one
+	setTimeout(function(){
+		// descriptorbox.replaceChildren(olddescriptor, newdescriptor);
+		olddescriptor.remove();
+		descriptorbox.appendChild(newdescriptor);
+		
+	}, 200);
+}
+
+
 move_to(positions.get("Start"));
+
 animate();
