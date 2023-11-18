@@ -17,21 +17,54 @@ const material = new THREE.MeshNormalMaterial;
 const cube = new THREE.Mesh( geometry, material );
 scene.add( cube );
 
+// Materials
+const materials = new Set();
+const warpfeld = new Set();
+let iswarpav = false;
+
+// Load our main scene
 const loader = new GLTFLoader();
 const loadedData = await loader.load("/Environment/scene.gltf",
 	function(gltf){
 		scene.add(gltf.scene);
-		gltf.animations;
+		gltf.animations; // Array<THREE.AnimationClip>
 		gltf.scene; // THREE.Group
 		gltf.scenes; // Array<THREE.Group>
 		gltf.cameras; // Array<THREE.Camera>
 		gltf.asset; // Object
+
+		// List All Scenes
+		scene.traverse(function(object){
+			if (object.material) materials.add(object.material);
+		});
+		console.log(materials);
+		for(const item of materials){
+			if (item.name === "WarpField"){
+				// console.log(item.map.name);
+				item.map.wrapS = THREE.RepeatWrapping;
+				item.map.wrapT = THREE.RepeatWrapping;
+				warpfeld.add(item);
+			
+			}
+		}
+		console.log(warpfeld);
+		iswarpav = true;
 	}
-	
 );
+
+
+// Load our "hdri"
+scene.background = new THREE.CubeTextureLoader().setPath("/Environment/").load(
+	['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png' ]
+);
+
 
 // Test camera position
 camera.position.z = 5;
+
+// Adding sun
+const directionalLight = new THREE.DirectionalLight( 0xffffff, 2 );
+scene.add( directionalLight );
 
 // Function that returns a camera position-rotation object (Holding the values)
 function camera_composition(pos_x, pos_y, pos_z, rot_x, rot_y, rot_z){
@@ -47,13 +80,22 @@ function camera_composition(pos_x, pos_y, pos_z, rot_x, rot_y, rot_z){
 const positions = new Map([
 	["RAUL\'S DIGITAL SPACE", new camera_composition(9.29,2.02,71.62,0.09,0.29,0)],
 	["HackUTA 2023", new camera_composition(1,5,8,0,0,0)], 
-	["Skills", new camera_composition(1,7,8,0,0,0)], 
+	["Ludwig Myth Room Decor", new camera_composition(-45.6,5.37,6.37,-2.93,0.28,3.14)], 
+	["Skills", new camera_composition(1,7,8,0,0,0)]
 ])
 
 // Map of descriptions
 const descriptions = new Map([
 	["RAUL\'S DIGITAL SPACE", "Hello, welcome to the space. Look around, take a gander at what I've worked on. "],
-	["HackUTA 2023", "A digital AI photobooth"],
+	["HackUTA 2023", "ROLE:A digital AI photobooth"],
+	["Ludwig Myth Room Decor", `<b>ROLE:</b> 3D Modeler<BR/>
+	<b>TOOLS USED:</b> Blender, ThreeJS<BR/>
+	<b>LINK:</b> <a href='https://www.youtube.com/watch?v=auH703P_HFg'>Youtube Video</a><BR/>
+	Modeled web-optimized 3D models to be used in an interactive website representing a room decoration simulation. 
+	Utilized 3D software such as Blender and ThreeJS in order to optimize their presentation on the web. 
+	The website was then used to vote for item placement in the room by placing them in the virtual room.</BR>
+	</BR>
+	Hint: Look at the upper right corner in the video, those were my 3D models from the website!`],
 	["Skills", "Skills :)"]
 ])
 
@@ -61,6 +103,7 @@ const descriptions = new Map([
 const dates = new Map ([
 	["RAUL\'S DIGITAL SPACE", "v0.1.0"],
 	["HackUTA 2023", "Oct 2023"],
+	["Ludwig Myth Room Decor", "March 2023"],
 	["Skills", ""]
 ])
 
@@ -91,6 +134,16 @@ function animate() {
 	cube.rotation.x += 0.01;
 	cube.rotation.y += 0.01;
 
+	// console.log(warpfeld)
+	if(iswarpav){
+		warpfeld.forEach(function(value){
+			// console.log(value.map.name);
+			value.map.offset.y -= .005;
+		});
+
+	}
+	
+
 	renderer.render( scene, camera );
 	TWEEN.update();
 }
@@ -118,12 +171,12 @@ function move_to(p){
 		xr: camera.rotation.x, yr: camera.rotation.y, zr: camera.rotation.z
 	};
 	new TWEEN.Tween(coords_rots).to(
-		{x: p.x, y: p.y, z: p.z, xr: p.xr, yr: p.yr, zr: p.zr}
+		{x: p.x, y: p.y, z: p.z, xr: p.xr, yr: p.yr, zr: p.zr}, 2000
 	).onUpdate(() => {
 		camera.position.set(coords_rots.x, coords_rots.y, coords_rots.z);
 		camera.rotation.set(coords_rots.xr, coords_rots.yr, coords_rots.zr);
 	}
-	).easing(TWEEN.Easing.Cubic.InOut).start();
+	).easing(TWEEN.Easing.Quadratic.InOut).start();
 }
 
 // Update dates

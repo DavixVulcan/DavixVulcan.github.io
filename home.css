@@ -82,7 +82,7 @@ p {
 
 .overlay .Descriptor {
     padding: 10px;
-    background-color: rgba(255, 255, 255, 0.603);
+    background-color: rgba(75, 75, 75, 0.692);
     border-radius: 15px;
     grid-column: 3;
     grid-row: 2;
@@ -120,7 +120,7 @@ p {
 
 .overlay .ButtonMenu {
     padding: 10px;
-    background-color: rgba(255, 255, 255, 0.603);
+    background-color: rgba(75, 75, 75, 0.692);
     border-radius: 15px;
     grid-column: 1;
     grid-row: 2;
