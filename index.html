@@ -28,12 +28,13 @@
                 <h3 id="Subtitle">v0.1.0</h3>
             </div>
 
-            <div class="ButtonMenu">
-                <button id="ProjectsButton" class="Button" onclick="drop_down_toggle()">Projects + </button>
+            <div class="ButtonMenu" id="ButtonMenu">
+                <button class="Button" onclick="selector('RAUL\'S DIGITAL SPACE')" style="text-decoration: underline white solid 4px;">Home</button>
+                <button class="Button" id="ProjectsButton" onclick="drop_down_toggle()">Projects +</button>
                 <div class="ProjectsContent" id="ProjectsContent" style="max-height: 0px;">
-                    <button onclick="selector('HackUTA 2023')">HackUTA 2023</button>
+                    <button class="DropdownItem" onclick="selector('HackUTA 2023')">HackUTA 2023</button>
                 </div>
-                <button class="Button">Skills</button>
+                <button class="Button" onclick="selector('Skills')">Skills</button>
                 <button class="Button">About</button>
             </div>
 

@@ -32,14 +32,23 @@ function camera_composition(pos_x, pos_y, pos_z, rot_x, rot_y, rot_z){
 
 // My map of locations and rotations for the camera
 const positions = new Map([
-	["Start", new camera_composition(1,1,5,0,0,0)],
-	["HackUTA 2023", new camera_composition(1,5,8,0,0,0)]
+	["RAUL\'S DIGITAL SPACE", new camera_composition(1,1,5,0,0,0)],
+	["HackUTA 2023", new camera_composition(1,5,8,0,0,0)], 
+	["Skills", new camera_composition(1,7,8,0,0,0)], 
 ])
 
 // Map of descriptions
-const descriptions = new Map ([
-	["Start", "Hello, welcome to the space. Look around, take a gander at what I've worked on. "],
-	["HackUTA 2023", "A digital AI photobooth"]
+const descriptions = new Map([
+	["RAUL\'S DIGITAL SPACE", "Hello, welcome to the space. Look around, take a gander at what I've worked on. "],
+	["HackUTA 2023", "A digital AI photobooth"],
+	["Skills", "Skills :)"]
+])
+
+// Map of dates
+const dates = new Map ([
+	["RAUL\'S DIGITAL SPACE", "v0.1.0"],
+	["HackUTA 2023", "Oct 2023"],
+	["Skills", ""]
 ])
 
 
@@ -56,7 +65,7 @@ function drop_down_toggle(){
 	} else {
 		selectable.innerHTML = "Projects - "
 		content.style.maxHeight = content.scrollHeight + "px";
-		console.log("Opening");
+		// console.log("Opening");
 	}
 }
 // Bring it as an onclick function
@@ -73,24 +82,19 @@ function animate() {
 	TWEEN.update();
 }
 
+// Update descriptor box
 function update_descriptor(flavorText){
 	// Get description box and fade out element
 	const descriptorbox = document.getElementById("Descriptor");
 	const  olddescriptor = descriptorbox.firstElementChild;
-	olddescriptor.setAttribute("class", "fadeDescriptorOut");
+	// olddescriptor.setAttribute("class", "fadeDescriptorOut");
+	olddescriptor.remove();
 
 	// Make new element to repace it
 	const newdescriptor = document.createElement("p");
 	newdescriptor.innerHTML = flavorText;
 	newdescriptor.setAttribute("class", "newDescription");
-	
-	// Add it after .2 secs, after the fade out animation is complete, while removing the old one
-	setTimeout(function(){
-		// descriptorbox.replaceChildren(olddescriptor, newdescriptor);
-		olddescriptor.remove();
-		descriptorbox.appendChild(newdescriptor);
-		
-	}, 200);
+	descriptorbox.appendChild(newdescriptor);
 }
 
 // This function takes in a camera_allocator object, that extracts
@@ -105,9 +109,17 @@ function move_to(p){
 	).onUpdate(() => {
 		camera.position.set(coords_rots.x, coords_rots.y, coords_rots.z);
 		camera.rotation.set(coords_rots.xr, coords_rots.yr, coords_rots.zr);
-		// console.log("HAH");
 	}
 	).easing(TWEEN.Easing.Cubic.InOut).start();
+}
+
+// Update dates
+function update_date(text){
+	const subTitle = document.getElementById("Subtitle");
+	subTitle.innerHTML = text;
+	subTitle.style.animation = 'none'; 
+	subTitle.offsetHeight;
+	subTitle.style.animation = ''; 
 }
 
 // A wrapper for our onclick function
@@ -115,12 +127,70 @@ function selector(text){
 	const Title = document.getElementById("Title");
 	let new_pos = positions.get(text);
 	let new_text = descriptions.get(text);
+	let new_date = dates.get(text);
 	Title.innerHTML = text;
 	Title.style.animation = 'none'; 
 	Title.offsetHeight;
 	Title.style.animation = ''; 
 	move_to(new_pos);
 	update_descriptor(new_text);
+	update_date(new_date);
+	if (text !== "RAUL\'S DIGITAL SPACE" && text !== "Skills" && text !== "About"){
+		const menu = document.getElementById("ButtonMenu").children;
+		for (var i = 0; i < menu.length; i++){
+			var child = menu[i];
+			child.style.textDecoration = "none";
+		}
+		let contentChilds = document.getElementById("ProjectsContent").children;
+		for (var i = 0; i < contentChilds.length; i++){
+			var child = contentChilds[i];
+			child.style.textDecoration = "none";
+		}
+		
+		for (var i = 0; i < contentChilds.length; i++){
+			var child = contentChilds[i];
+			if (child.innerHTML == text){
+				child.style.textDecoration = "underline";
+			}
+		}
+	} else if (text == "RAUL\'S DIGITAL SPACE"){
+		let contentChilds = document.getElementById("ProjectsContent").children;
+		for (var i = 0; i < contentChilds.length; i++){
+			var child = contentChilds[i];
+			child.style.textDecoration = "none";
+		}
+		const menu = document.getElementById("ButtonMenu").children;
+		for (var i = 0; i < menu.length; i++){
+			var child = menu[i];
+			child.style.textDecoration = "none";
+		}
+		for (var i = 0; i < menu.length; i++){
+			var child = menu[i];
+			if (child.innerHTML == "Home"){
+				child.style.textDecoration = "underline white solid 4px";
+				child.style.textUnderlineOffset = "6px";
+			}
+		}
+
+	} else {
+		let contentChilds = document.getElementById("ProjectsContent").children;
+		for (var i = 0; i < contentChilds.length; i++){
+			var child = contentChilds[i];
+			child.style.textDecoration = "none";
+		}
+		const menu = document.getElementById("ButtonMenu").children;
+		for (var i = 0; i < menu.length; i++){
+			var child = menu[i];
+			child.style.textDecoration = "none";
+		}
+		for (var i = 0; i < menu.length; i++){
+			var child = menu[i];
+			if (child.innerHTML == text){
+				child.style.textDecoration = "underline white solid 4px";
+				child.style.textUnderlineOffset = "6px";
+			}
+		}
+	}
 }
 // Bring it as an onclick function
 window.selector = selector;
