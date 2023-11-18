@@ -138,7 +138,7 @@ function animate() {
 	if(iswarpav){
 		warpfeld.forEach(function(value){
 			// console.log(value.map.name);
-			value.map.offset.y -= .005;
+			value.map.offset.y -= .0025;
 		});
 
 	}
