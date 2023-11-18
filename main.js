@@ -4,7 +4,7 @@ import { TWEEN } from 'https://unpkg.com/three@0.139.0/examples/jsm/libs/tween.m
 
 // Setting the scene constants
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+const camera = new THREE.PerspectiveCamera( 33, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
 // Setting the renderer
 const renderer = new THREE.WebGLRenderer();
@@ -16,6 +16,19 @@ const geometry = new THREE.BoxGeometry( 1, 1, 1 );
 const material = new THREE.MeshNormalMaterial;
 const cube = new THREE.Mesh( geometry, material );
 scene.add( cube );
+
+const loader = new GLTFLoader();
+const loadedData = await loader.load("/Environment/scene.gltf",
+	function(gltf){
+		scene.add(gltf.scene);
+		gltf.animations;
+		gltf.scene; // THREE.Group
+		gltf.scenes; // Array<THREE.Group>
+		gltf.cameras; // Array<THREE.Camera>
+		gltf.asset; // Object
+	}
+	
+);
 
 // Test camera position
 camera.position.z = 5;
@@ -32,7 +45,7 @@ function camera_composition(pos_x, pos_y, pos_z, rot_x, rot_y, rot_z){
 
 // My map of locations and rotations for the camera
 const positions = new Map([
-	["RAUL\'S DIGITAL SPACE", new camera_composition(1,1,5,0,0,0)],
+	["RAUL\'S DIGITAL SPACE", new camera_composition(9.29,2.02,71.62,0.09,0.29,0)],
 	["HackUTA 2023", new camera_composition(1,5,8,0,0,0)], 
 	["Skills", new camera_composition(1,7,8,0,0,0)], 
 ])
@@ -194,5 +207,5 @@ function selector(text){
 }
 // Bring it as an onclick function
 window.selector = selector;
-
+move_to(positions.get("RAUL\'S DIGITAL SPACE"));
 animate();
