@@ -12,15 +12,19 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.insertBefore( renderer.domElement, document.body.firstChild);
 
 // Test cube
-const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-const material = new THREE.MeshNormalMaterial;
-const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
+// const geometry = new THREE.BoxGeometry( 1, 1, 1 );
+// const material = new THREE.MeshNormalMaterial;
+// const cube = new THREE.Mesh( geometry, material );
+// scene.add( cube );
 
 // Materials
 const materials = new Set();
 const warpfeld = new Set();
+const slideshow = new Set();
 let iswarpav = false;
+
+let mixer, clock;
+
 
 // Load our main scene
 const loader = new GLTFLoader();
@@ -32,6 +36,13 @@ const loadedData = await loader.load("/Environment/scene.gltf",
 		gltf.scenes; // Array<THREE.Group>
 		gltf.cameras; // Array<THREE.Camera>
 		gltf.asset; // Object
+
+		// Animation handlers
+		mixer = new THREE.AnimationMixer(gltf.scene);
+		gltf.animations.forEach((clip)=> {
+			mixer.clipAction(clip).play();
+		})
+		clock = new THREE.Clock();
 
 		// List All Scenes
 		scene.traverse(function(object){
@@ -45,6 +56,10 @@ const loadedData = await loader.load("/Environment/scene.gltf",
 				item.map.wrapT = THREE.RepeatWrapping;
 				warpfeld.add(item);
 			
+			} else if (item.name === "Slideshow"){
+				item.map.wrapS = THREE.RepeatWrapping;
+				item.map.wrapT = THREE.RepeatWrapping;
+				slideshow.add(item);
 			}
 		}
 		console.log(warpfeld);
@@ -78,42 +93,98 @@ function camera_composition(pos_x, pos_y, pos_z, rot_x, rot_y, rot_z){
 
 // My map of locations and rotations for the camera
 const positions = new Map([
-	["RAUL\'S DIGITAL SPACE", new camera_composition(9.29,2.02,71.62,0.09,0.29,0)],
-	["HackUTA 2023", new camera_composition(1,5,8,0,0,0)], 
-	["Ludwig Myth Room Decor", new camera_composition(-45.6,5.37,6.37,-2.93,0.28,3.14)], 
-	["Skills", new camera_composition(1,7,8,0,0,0)]
+	["RAUL\'S DIGITAL SPACE", new camera_composition(9.29,2.02,71.62, 0.09, 0.29, 0)],
+	["Projects", new camera_composition(0,2.5,3, 1.57, 1.39, -1.57)],
+	["Ludwig Myth Room Decor", new camera_composition(-45.6,5.37,6.37, -2.93, 0.28, 3.14)],
+	["HackUTA 2023", new camera_composition(-66,5.37,8, -2.93, -0.23, 3.14)], 
+	["Habromania", new camera_composition(-49.6,7.37,-2, 0, 0, 0)],
+	["Skills", new camera_composition(18.97,3.69,-0.32,0.09, 0.29, 0)]
 ])
 
 // Map of descriptions
 const descriptions = new Map([
 	["RAUL\'S DIGITAL SPACE", "Hello, welcome to the space. Look around, take a gander at what I've worked on. "],
-	["HackUTA 2023", "ROLE:A digital AI photobooth"],
+	["Projects", "Take a look at what I've worked on/ am currently working on."],
 	["Ludwig Myth Room Decor", `<b>ROLE:</b> 3D Modeler<BR/>
 	<b>TOOLS USED:</b> Blender, ThreeJS<BR/>
-	<b>LINK:</b> <a href='https://www.youtube.com/watch?v=auH703P_HFg'>Youtube Video</a><BR/>
+	<b>LINK:</b> <a href='https://www.youtube.com/watch?v=auH703P_HFg' target="_blank">Youtube Video</a><BR/>
 	Modeled web-optimized 3D models to be used in an interactive website representing a room decoration simulation. 
 	Utilized 3D software such as Blender and ThreeJS in order to optimize their presentation on the web. 
 	The website was then used to vote for item placement in the room by placing them in the virtual room.</BR>
 	</BR>
 	Hint: Look at the upper right corner in the video, those were my 3D models from the website!`],
-	["Skills", "Skills :)"]
+	["HackUTA 2023", `<b>ROLE:</b> Programmer<BR/>
+	<b>TOOLS USED:</b> Python, ReplicateAPI<BR/>
+	<b>LINK:</b> <a href='https://github.com/DavixVulcan/HackUTA2023' target="_blank">GitHub Page</a><BR/>
+	Implemented a digital photobooth that takes in an image via the Raspberry Pi camera, returning 
+	an AI stylized photo to the user. Programmed using python and implemented the Replicate.com API in
+	order to achieve the stylization. Photos were then served and hosted via Google Cloud, where
+	a QR code would be used to access the photo.
+	`],
+	["Habromania", `<b>ROLE:</b> Programmer<BR/>
+	<b>TOOLS USED:</b> Godot 4.0<BR/>
+	<b>LINK:</b> <a href='https://www.instagram.com/symphony_sonata/' target="_blank">Director's Page</a><BR/>
+	Utilized the Godot Game engine to bring the creative direction to fruition. Currently working on the 
+	battling system. Working towards getting a demo out soon.
+	`],
+	["Skills", `<b>C:</b> 3 Years<BR/>
+	<b>Python:</b> 2 Years<BR/>
+	<b>HTML/CSS/JS:</b> 1 Year<BR/>
+	<b>Godot:</b> 3 Years<BR/>
+	<b>GitHub:</b> 1 Year<BR/>
+	<b>Java:</b> 2 Years<BR/>
+	<b>Unreal Engine:</b> 2 Years<BR/>
+	<b>Arduino Platform:</b> 3 Years<BR/>
+	`]
 ])
 
 // Map of dates
 const dates = new Map ([
 	["RAUL\'S DIGITAL SPACE", "v0.1.0"],
-	["HackUTA 2023", "Oct 2023"],
+	["Projects", "as of: OCT 2023"],
 	["Ludwig Myth Room Decor", "March 2023"],
-	["Skills", ""]
+	["HackUTA 2023", "Oct 2023"],
+	["Habromania", "TBD"],
+	["Skills", "as of: NOV 2023"]
 ])
 
 
 // Toggle drop down
 // let dropTog = false;
-function drop_down_toggle(){
+function drop_down_toggle(open){
+	// const menu = document.getElementById("ButtonMenu").children;
+	// for (var i = 0; i < menu.length; i++){
+	// 	var child = menu[i];
+	// 	child.style.textDecoration = "none";
+	// }
+	// let contentChilds = document.getElementById("ProjectsContent").children;
+	// for (var i = 0; i < contentChilds.length; i++){
+	// 	var child = contentChilds[i];
+	// 	child.style.textDecoration = "none";
+	// }
 	
 	const selectable = document.getElementById("ProjectsButton");
 	const content = document.getElementById("ProjectsContent");
+
+	// if(open){
+	// 	selectable.innerHTML = "Projects - "
+	// 	content.style.maxHeight = content.scrollHeight + "px";
+	// 	content.style.padding = "10px";
+
+	// 	const Title = document.getElementById("Title");
+	// 	Title.innerHTML = "Projects";
+	// 	Title.style.animation = 'none'; 
+	// 	Title.offsetHeight;
+	// 	Title.style.animation = ''; 
+		
+	// 	move_to(positions.get("Projects"));
+	// 	update_descriptor(descriptions.get("Projects"));
+	// 	update_date(dates.get("Projects"));
+	// } else {
+	// 	content.style.maxHeight = "0px";
+	// 	content.style.padding = "0px";
+	// 	selectable.innerHTML = "Projects + ";
+	// }
 
 	if(content.style.maxHeight !== "0px"){
 		content.style.maxHeight = "0px";
@@ -127,23 +198,35 @@ function drop_down_toggle(){
 // Bring it as an onclick function
 window.drop_down_toggle = drop_down_toggle;
 
+
+// Slideshow var loop
+let ssvar = 0;
+
 // Animation loop
 function animate() {
 	requestAnimationFrame( animate );
 
-	cube.rotation.x += 0.01;
-	cube.rotation.y += 0.01;
+	// cube.rotation.x += 0.01;
+	// cube.rotation.y += 0.01;
+	ssvar += 2;
+	ssvar %= 800;
 
-	// console.log(warpfeld)
+	console.log(ssvar);
 	if(iswarpav){
 		warpfeld.forEach(function(value){
 			// console.log(value.map.name);
 			value.map.offset.y -= .0025;
 		});
+		slideshow.forEach(function(value){
+			if (ssvar == 0){
+				value.map.offset.x += 1/3;
+			}
+		})
 
 	}
-	
 
+	if(clock){var delta = clock.getDelta();}
+	if(mixer) mixer.update(delta);
 	renderer.render( scene, camera );
 	TWEEN.update();
 }
@@ -220,6 +303,7 @@ function selector(text){
 			}
 		}
 	} else if (text == "RAUL\'S DIGITAL SPACE"){
+		// drop_down_toggle(false);
 		let contentChilds = document.getElementById("ProjectsContent").children;
 		for (var i = 0; i < contentChilds.length; i++){
 			var child = contentChilds[i];
@@ -239,6 +323,8 @@ function selector(text){
 		}
 
 	} else {
+		
+		// drop_down_toggle(false);
 		let contentChilds = document.getElementById("ProjectsContent").children;
 		for (var i = 0; i < contentChilds.length; i++){
 			var child = contentChilds[i];
