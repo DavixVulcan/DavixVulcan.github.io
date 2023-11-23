@@ -87,6 +87,7 @@ p {
 .overlay .Descriptor {
     padding: 10px;
     overflow-y: auto;
+    overflow-x: hidden;
     background-color: rgba(75, 75, 75, 0.692);
     border-radius: 15px;
     grid-column: 3;

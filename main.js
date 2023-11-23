@@ -93,6 +93,7 @@ function camera_composition(pos_x, pos_y, pos_z, rot_x, rot_y, rot_z){
 
 // My map of locations and rotations for the camera
 const positions = new Map([
+	["About", new camera_composition(0,15,0,0,0,0)],
 	["RAUL\'S DIGITAL SPACE", new camera_composition(9.29,2.02,71.62, 0.09, 0.29, 0)],
 	["Projects", new camera_composition(0,2.5,3, 1.57, 1.39, -1.57)],
 	["Ludwig Myth Room Decor", new camera_composition(-45.6,5.37,6.37, -2.93, 0.28, 3.14)],
@@ -103,6 +104,12 @@ const positions = new Map([
 
 // Map of descriptions
 const descriptions = new Map([
+	["About", `<b><u>Raul Salas</u></b><BR/>
+	<b>Currently Working:</b> UTA Libraries (2021-Present)<BR/>
+	<b>Position:</b> Virtual Production Student Lead<BR/>
+	<BR/>
+	Website built using Three.js and Tween.js
+	`],
 	["RAUL\'S DIGITAL SPACE", "Hello, welcome to the space. Look around, take a gander at what I've worked on. "],
 	["Projects", "Take a look at what I've worked on/ am currently working on."],
 	["Ludwig Myth Room Decor", `<b>ROLE:</b> 3D Modeler<BR/>
@@ -140,6 +147,7 @@ const descriptions = new Map([
 
 // Map of dates
 const dates = new Map ([
+	["About", ""],
 	["RAUL\'S DIGITAL SPACE", "v0.1.0"],
 	["Projects", "as of: OCT 2023"],
 	["Ludwig Myth Room Decor", "March 2023"],
