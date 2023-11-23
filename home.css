@@ -68,7 +68,7 @@ p {
     left: 0px;
     display: grid;
     grid-template-columns: 20% auto 20%;
-    grid-template-rows: 25% auto 15%;
+    grid-template-rows: 25% 60% 15%;
     width: calc(100% - 50px);
     height: calc(100% - 50px);
     border-style: solid;
@@ -86,6 +86,7 @@ p {
 
 .overlay .Descriptor {
     padding: 10px;
+    overflow-y: auto;
     background-color: rgba(75, 75, 75, 0.692);
     border-radius: 15px;
     grid-column: 3;

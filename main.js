@@ -211,7 +211,7 @@ function animate() {
 	ssvar += 2;
 	ssvar %= 800;
 
-	console.log(ssvar);
+	// console.log(ssvar);
 	if(iswarpav){
 		warpfeld.forEach(function(value){
 			// console.log(value.map.name);
