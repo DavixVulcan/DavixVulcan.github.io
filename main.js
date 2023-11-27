@@ -104,7 +104,7 @@ const positions = new Map([
 
 // Map of descriptions
 const descriptions = new Map([
-	["About", `<b><u>Raul Salas</u></b><BR/>
+	["About", `<b><u>Raul Salas</u+></b><BR/>
 	<b>Currently Working:</b> UTA Libraries (2021-Present)<BR/>
 	<b>Position:</b> Virtual Production Student Lead<BR/>
 	<BR/>
