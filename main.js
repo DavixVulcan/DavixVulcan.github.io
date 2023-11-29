@@ -98,6 +98,7 @@ const positions = new Map([
 	["Projects", new camera_composition(0,2.5,3, 1.57, 1.39, -1.57)],
 	["Ludwig Myth Room Decor", new camera_composition(-45.6,5.37,6.37, -2.93, 0.28, 3.14)],
 	["HackUTA 2023", new camera_composition(-66,5.37,8, -2.93, -0.23, 3.14)], 
+	["Ludwig Game Jam 2023", new camera_composition(-78,5.37,8, -2.93, 0.28, 3.14)], 
 	["Habromania", new camera_composition(-49.6,7.37,-2, 0, 0, 0)],
 	["Skills", new camera_composition(18.97,3.69,-0.32,0.09, 0.29, 0)]
 ])
@@ -128,6 +129,12 @@ const descriptions = new Map([
 	order to achieve the stylization. Photos were then served and hosted via Google Cloud, where
 	a QR code would be used to access the photo.
 	`],
+	["Ludwig Game Jam 2023", `<b>Game:</b> Coots Want to go Home<BR/>
+	<b>TOOLS USED:</b> Godot<BR/>
+	<b>LINK:</b> <a href='https://github.com/DavixVulcan/LudwigJam2023' target="_blank">GitHub Page</a><BR/>
+	Created a game on my own within a week, utilizing the Godot game engine to imlement everything from scratch (Excluding sound
+	design)
+	`],
 	["Habromania", `<b>ROLE:</b> Programmer<BR/>
 	<b>TOOLS USED:</b> Godot 4.0<BR/>
 	<b>LINK:</b> <a href='https://www.instagram.com/symphony_sonata/' target="_blank">Director's Page</a><BR/>
@@ -152,6 +159,7 @@ const dates = new Map ([
 	["Projects", "as of: OCT 2023"],
 	["Ludwig Myth Room Decor", "March 2023"],
 	["HackUTA 2023", "Oct 2023"],
+	["Ludwig Game Jam 2023", "Feb 2023"],
 	["Habromania", "TBD"],
 	["Skills", "as of: NOV 2023"]
 ])
@@ -199,7 +207,8 @@ function drop_down_toggle(open){
 		selectable.innerHTML = "Projects + ";
 	} else {
 		selectable.innerHTML = "Projects - "
-		content.style.maxHeight = content.scrollHeight + "px";
+		content.style.maxHeight = (content.scrollHeight + 50) + "px";
+		// content.style.maxHeight = "auto";
 		// console.log("Opening");
 	}
 }

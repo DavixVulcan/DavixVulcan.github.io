@@ -88,6 +88,9 @@ p {
     padding: 10px;
     overflow-y: auto;
     overflow-x: hidden;
+    
+    scrollbar-color: white rgba(0,0,0,0);
+    scrollbar-width: thin;
     background-color: rgba(75, 75, 75, 0.692);
     border-radius: 15px;
     grid-column: 3;
@@ -125,6 +128,11 @@ p {
 }
 
 .overlay .ButtonMenu {
+    
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-color: white rgba(0,0,0,0);
+    scrollbar-width: thin;
     padding: 10px;
     background-color: rgba(75, 75, 75, 0.692);
     border-radius: 15px;
