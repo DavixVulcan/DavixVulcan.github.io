@@ -21,6 +21,8 @@ document.body.insertBefore( renderer.domElement, document.body.firstChild);
 const materials = new Set();
 const warpfeld = new Set();
 const slideshow = new Set();
+const hackslide = new Set();
+const gameslides = new Set();
 let iswarpav = false;
 
 let mixer, clock;
@@ -60,6 +62,14 @@ const loadedData = await loader.load("/Environment/scene.gltf",
 				item.map.wrapS = THREE.RepeatWrapping;
 				item.map.wrapT = THREE.RepeatWrapping;
 				slideshow.add(item);
+			} else if (item.name === "HackSlidesAll"){
+				item.map.wrapS = THREE.RepeatWrapping;
+				item.map.wrapT = THREE.RepeatWrapping;
+				hackslide.add(item);
+			} else if (item.name === "GameSlides"){
+				item.map.wrapS = THREE.RepeatWrapping;
+				item.map.wrapT = THREE.RepeatWrapping;
+				gameslides.add(item);
 			}
 		}
 		console.log(warpfeld);
@@ -235,6 +245,16 @@ function animate() {
 			value.map.offset.y -= .0025;
 		});
 		slideshow.forEach(function(value){
+			if (ssvar == 0){
+				value.map.offset.x += 1/3;
+			}
+		})
+		hackslide.forEach(function(value){
+			if (ssvar == 0){
+				value.map.offset.x += 1/3;
+			}
+		})
+		gameslides.forEach(function(value){
 			if (ssvar == 0){
 				value.map.offset.x += 1/3;
 			}
